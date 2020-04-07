@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>Simple example</title>
+</head>
+<body>
+<div id="layout">
+    <header>
+        <h1>Simple example</h1>
+    </header>
+    <form action="localhost:8080/check" method="post">
+        <table>
+            <tr>
+                <td> name:<input name="name" type="text"/></td>
+            </tr>
+            <tr>
+                <td>longitude:<input name="longitude" type="text"/></td>
+            </tr>
+            <tr>
+                <td>latitude:<input name="latitude" type="text"/></td>
+            </tr>
+        </table>
+        <input id="btn" type="button" value="button">
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#btn").click(function () {
+            $.ajax({
+                url: '/check',
+                data: {
+                    'name': $("[name='name']").val(),
+                    'longitude': $("[name='longitude']").val(),
+                    'latitude': $("[name='latitude']").val()
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status == 'success') {
+                        alert("success");
+                    } else {
+                        alert("error");
+                    }
+                }
+            })
+        });
+    });
+</script>
+</html>
